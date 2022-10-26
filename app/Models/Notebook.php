@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Notebook extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'fio', 'phone_number', 'email', 'birth_date', 'image'
+    ];
 }
