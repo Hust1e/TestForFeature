@@ -18,12 +18,12 @@ class NotebookController extends BaseController
         $notebooks = Notebook::paginate(10);
         return new NotebookResource($notebooks);
     }
-    
+
     public function store(StoreNotebookRequest $request)
     {
         $data = $request->validated($request->all);
         $notebook = Notebook::create($data);
-        return $this->success($notebook);
+        return $this->success($notebook, '', 201);
     }
 
     public function show(Request $request)
@@ -40,7 +40,7 @@ class NotebookController extends BaseController
         if($this->service->isExist($request->notebook)){
             $notebook = Notebook::find($request->notebook);
             $notebook->update($request->all());
-            return $this->success($notebook);
+            return $this->success($notebook, 'This notebook successfully updated', 200);
         }
         return $this->fail(404, 'This notebook not exist');
 
@@ -50,7 +50,7 @@ class NotebookController extends BaseController
         if($this->service->isExist($request->notebook)){
             $notebook = Notebook::find($request->notebook);
             $notebook->delete();
-            return $this->success(null);
+            return $this->success(null, '', 204);
         }
         return $this->fail(404,'This notebook not exist');
     }
